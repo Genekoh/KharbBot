@@ -1,0 +1,21 @@
+{
+  "name": "music-bot",
+  "version": "1.0.0",
+  "description": "A music bot for my discord server",
+  "main": "app.js",
+  "author": {
+    "name": "Gene"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": " node -r dotenv/config app.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.4.0",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
