@@ -8,8 +8,9 @@ module.exports = {
         url += "https://";
       }
 
-      const VideoInfo = await axios.get(API_URL + url);
-      return VideoInfo.title;
+      const hi = API_URL + url;
+      const VideoInfo = await axios.get(hi);
+      return VideoInfo.data.title;
     } catch (err) {
       console.log(err);
       throw err;

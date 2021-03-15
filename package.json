@@ -1,5 +1,5 @@
 {
-  "name": "music-bot",
+  "name": "kharb-bot",
   "version": "1.0.0",
   "description": "A music bot for my discord server",
   "main": "src/app.js",
@@ -8,11 +8,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": " nodemon -r dotenv/config src/app.js"
+    "start": " node -r dotenv/config src/app.js"
   },
   "devDependencies": {
     "eslint": "^7.22.0",
-    "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   },
   "dependencies": {
@@ -20,6 +19,6 @@
     "axios": "^0.21.1",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
-    "ffmpeg-static": "^4.2.7"
+    "ytdl-core": "^4.5.0"
   }
 }
