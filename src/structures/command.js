@@ -9,5 +9,7 @@ module.exports = class Command {
 
   run() {}
 
-  static get getCommandName() {}
+  static get command() {}
+
+  static get aliases() {}
 };

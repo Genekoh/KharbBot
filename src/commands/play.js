@@ -13,6 +13,7 @@ module.exports = class Play extends Command {
       url += "https://";
     }
     this.url = url;
+    this.textChannel = this.message.channel;
     this.voiceChannel = this.message.member.voice.channel;
   }
 
@@ -23,7 +24,7 @@ module.exports = class Play extends Command {
   async run() {
     try {
       if (!this.voiceChannel) {
-        return this.message.channel.send(
+        return this.textChannel.send(
           "You have to be in a channel before running this command"
         );
       }
@@ -33,11 +34,11 @@ module.exports = class Play extends Command {
       const dispatcher = this.connection.play(ytdl(this.url));
 
       dispatcher.on("start", () => {
-        this.message.channel.send(`Playing ${videoTitle}`);
+        this.textChannel.send(`Playing ${videoTitle}`);
       });
 
       dispatcher.on("end", () => {
-        this.message.channel.send(`${videoTitle} ended`);
+        this.textChannel.send(`${videoTitle} ended`);
       });
     } catch (err) {
       console.log(err);
