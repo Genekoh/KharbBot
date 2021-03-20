@@ -3,3 +3,8 @@
 
 # Packages
 node_modules
+
+# IDE configurations
+.idea
+
+src/commands/prefix.js

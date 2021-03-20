@@ -7,6 +7,9 @@
     "name": "Gene"
   },
   "license": "MIT",
+  "engines": {
+    "node": "14.15.1"
+  },
   "scripts": {
     "start": " node -r dotenv/config src/app.js"
   },
