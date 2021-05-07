@@ -1,5 +1,5 @@
 let queue = [];
-let currentDispatcher;
+let currentDispatcher = null;
 
 module.exports = {
     setQueue(q) {

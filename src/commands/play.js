@@ -5,6 +5,7 @@ const {
     getNextInQueue,
     removeNextInQueue,
     setQueue,
+    setDispatcher,
 } = require("../queue.js");
 
 module.exports = {
@@ -58,6 +59,7 @@ module.exports = {
 async function playSong(connection, message) {
     const { title, stream } = getNextInQueue();
     const dispatcher = connection.play(stream);
+    setDispatcher(dispatcher);
 
     connection.on("disconnect", () => {
         setQueue([]);
