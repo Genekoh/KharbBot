@@ -1,47 +1,99 @@
-const Command = require("../structures/command.js");
-const Youtube = require("../apis/youtube.js");
 const ytdl = require("ytdl-core");
+const {
+    getQueue,
+    addToQueue,
+    getNextInQueue,
+    removeNextInQueue,
+    setQueue,
+} = require("../queue.js");
 
-module.exports = class Play extends Command {
-  constructor(message, parameters) {
-    super({ message, parameters });
+module.exports = {
+    name: "play",
+    description: "Play audio from a youtube video.",
+    async execute(message, args) {
+        try {
+            // if (broadcastDispatcher !== null) broadcastDispatcher.end;
+            const [url] = args;
 
-    let url = Array.isArray(this.parameters)
-      ? this.parameters[0]
-      : this.parameters;
-    if (typeof url === "string" && !url.includes("https://")) {
-      url += "https://";
-    }
-    this.url = url;
-    this.textChannel = this.message.channel;
-    this.voiceChannel = this.message.member.voice.channel;
-  }
+            const videoInfo = await ytdl.getBasicInfo(url);
+            const videoTitle = videoInfo.videoDetails.title;
 
-  static get command() {
-    return "play";
-  }
+            if (!message.member.voice.channel) {
+                throw new Error(
+                    "You have to be in a voice channel to play something."
+                );
+            }
+            if (!url) {
+            }
+            if (!ytdl.validateURL(url)) {
+                throw new Error("Invalid Url");
+            }
 
-  async run() {
-    try {
-      if (!this.voiceChannel) {
-        return this.textChannel.send(
-          "You have to be in a channel before running this command"
-        );
-      }
+            const connection = await message.member.voice.channel.join();
+            const newStream = ytdl(url, {
+                filter: "audioonly",
+            });
 
-      const videoTitle = await Youtube.getTitle(this.url);
-      this.connection = await this.voiceChannel.join();
-      const dispatcher = this.connection.play(ytdl(this.url));
-
-      dispatcher.on("start", () => {
-        this.textChannel.send(`Playing ${videoTitle}`);
-      });
-
-      dispatcher.on("end", () => {
-        this.textChannel.send(`${videoTitle} ended`);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+            const queue = getQueue();
+            if (queue.length === 0) {
+                addToQueue({
+                    title: videoTitle,
+                    stream: newStream,
+                });
+                await playSong(connection, message);
+            } else {
+                addToQueue({
+                    title: videoTitle,
+                    stream: newStream,
+                });
+                message.channel.send("Added To Queue");
+            }
+        } catch (error) {
+            message.channel.send(error.message);
+            console.log(error);
+        }
+    },
 };
+
+async function playSong(connection, message) {
+    const { title, stream } = getNextInQueue();
+    const dispatcher = connection.play(stream);
+
+    connection.on("disconnect", () => {
+        setQueue([]);
+        dispatcher.destroy();
+    });
+
+    dispatcher.on("start", () => {
+        message.channel.send(`Playing ${title}`);
+    });
+
+    dispatcher.on("finish", async () => {
+        removeNextInQueue();
+        const queue = getQueue();
+        if (queue.length === 0) {
+            message.channel.send("Finished Queue");
+            connection.disconnect();
+        } else {
+            await timeout(4000);
+            playSong(connection, message);
+        }
+    });
+}
+
+function timeout(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// function isURL(str) {
+//     const pattern = new RegExp(
+//         "^(https?:\\/\\/)?" + // protocol
+//             "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+//             "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+//             "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+//             "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+//             "(\\#[-a-z\\d_]*)?$",
+//         "i"
+//     ); // fragment locator
+//     return !!pattern.test(str);
+// }
