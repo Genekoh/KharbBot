@@ -1,1 +1,1 @@
-web: yarn start src/app.js
+worker: yarn start src/app.js
