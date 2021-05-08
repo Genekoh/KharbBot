@@ -11,7 +11,7 @@
         "node": "14.15.1"
     },
     "scripts": {
-        "start": " nodemon src/app.js"
+        "start": "yarn nodemon src/app.js"
     },
     "devDependencies": {
         "eslint": "^7.22.0",
