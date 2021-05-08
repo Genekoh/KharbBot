@@ -8,5 +8,3 @@ node_modules
 .idea
 
 src/commands/prefix.js
-
-Procfile

@@ -1,0 +1,1 @@
+web: yarn start src/app.js
