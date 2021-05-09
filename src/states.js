@@ -1,5 +1,6 @@
 let queue = [];
 let currentDispatcher = null;
+let playing = false;
 
 module.exports = {
     setQueue(q) {
@@ -22,5 +23,11 @@ module.exports = {
     },
     getDispatcher() {
         return currentDispatcher;
+    },
+    isPlaying() {
+        return playing;
+    },
+    setPlaying(bool) {
+        playing = bool;
     },
 };

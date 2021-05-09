@@ -1,4 +1,4 @@
-const { getDispatcher, getQueue } = require("../queue.js");
+const { getDispatcher } = require("../states.js");
 
 module.exports = {
     name: "skip",

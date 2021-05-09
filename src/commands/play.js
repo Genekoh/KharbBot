@@ -9,8 +9,7 @@ const {
     removeNextInQueue,
     setQueue,
     setDispatcher,
-} = require("../queue.js");
-const { search } = require("ffmpeg-static");
+} = require("../states.js");
 
 async function playSong(connection, message) {
     const { title, stream } = getNextInQueue();

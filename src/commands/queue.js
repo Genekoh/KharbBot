@@ -1,4 +1,4 @@
-const { getQueue } = require("../queue.js");
+const { getQueue } = require("../states.js");
 
 module.exports = {
     name: "queue",
@@ -12,7 +12,7 @@ module.exports = {
 
         let text = "";
         queue.forEach((q, i) => {
-            text += `${i + 1}) ${q.title}\n`;
+            text += `${i === 0 ? "Playing:" : i}) ${q.title}\n`;
         });
 
         message.channel.send(`\`\`${text}\`\``);
