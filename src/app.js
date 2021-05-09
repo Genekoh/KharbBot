@@ -15,7 +15,7 @@ for (const file of commandFiles) {
     client.commands.set(c.name, c);
 }
 
-const prefix = "KHWAB";
+const prefix = ".";
 
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
