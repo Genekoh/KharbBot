@@ -12,7 +12,7 @@ module.exports = {
 
         let text = "";
         queue.forEach((q, i) => {
-            text += `${i === 0 ? "Playing:" : i}) ${q.title}\n`;
+            text += `${i === 0 ? "Playing:" : `${i})`} ${q.title}\n`;
         });
 
         message.channel.send(`\`\`${text}\`\``);
