@@ -16,7 +16,8 @@ module.exports = {
             return message.channel.send("Queue number outside range.");
         }
 
-        queue.splice(queueNum, 1);
+        const removedSong = queue.splice(queueNum, 1);
         setQueue(queue);
+        message.channel.send(`Removed Song: ${removedSong.title}`)
     },
 };
