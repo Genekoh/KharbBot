@@ -5,6 +5,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const broadcast = client.voice.createBroadcast();
+const { getPrefix } = require("./states");
 
 const commandFiles = fs
     .readdirSync("./src/commands")
@@ -15,13 +16,12 @@ for (const file of commandFiles) {
     client.commands.set(c.name, c);
 }
 
-const prefix = ".";
-
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
 client.on("message", async (message) => {
+    const prefix = getPrefix();
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);

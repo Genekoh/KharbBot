@@ -1,6 +1,7 @@
 let queue = [];
 let currentDispatcher = null;
 let playing = false;
+const prefix = ".";
 
 module.exports = {
     setQueue(q) {
@@ -29,5 +30,11 @@ module.exports = {
     },
     setPlaying(bool) {
         playing = bool;
+    },
+    getPrefix() {
+        return p;
+    },
+    setPrefix(p) {
+        prefix = p;
     },
 };
