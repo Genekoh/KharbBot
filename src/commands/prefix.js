@@ -3,7 +3,7 @@ const { getPrefix, setPrefix } = require("../states.js");
 module.exports = {
     name: "prefix",
     description: "Set the prefix of commands",
-    execute(message, args) {
+    async execute(message, args) {
         const [newPrefix] = args;
         const currentPrefix = getPrefix();
 
