@@ -1,7 +1,7 @@
 const { getDispatcher } = require("../states.js");
 
 module.exports = {
-    name: "skip",
+    names: ["skip", "s"],
     description: "Skip the current song in the queue",
     execute(message) {
         const dispatcher = getDispatcher();

@@ -1,7 +1,7 @@
 const { getQueue, setQueue } = require("../states.js");
 
 module.exports = {
-    name: "remove",
+    names: ["remove"],
     description: "Remove a song in the queue",
     execute(message, args) {
         const queue = getQueue();

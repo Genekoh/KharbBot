@@ -1,7 +1,7 @@
 const { getQueue } = require("../states.js");
 
 module.exports = {
-    name: "queue",
+    names: ["queue", "q"],
     description: "See the queue of songs",
     execute(message) {
         const queue = getQueue();

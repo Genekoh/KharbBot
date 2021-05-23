@@ -4,7 +4,7 @@ const fs = require("fs");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const { getPrefix } = require("./states");
+const prefix = process.env.PREFIX || ".";
 
 const commandFiles = fs
     .readdirSync("./src/commands")
@@ -12,7 +12,7 @@ const commandFiles = fs
 
 for (const file of commandFiles) {
     const c = require(`./commands/${file}`);
-    client.commands.set(c.name, c);
+    c.names.forEach((name) => client.commands.set(name, c));
 }
 
 client.once("ready", () => {
@@ -20,7 +20,6 @@ client.once("ready", () => {
 });
 
 client.on("message", async (message) => {
-    const prefix = getPrefix();
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);

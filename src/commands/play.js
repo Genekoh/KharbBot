@@ -56,7 +56,7 @@ function isUrl(str) {
 }
 
 module.exports = {
-    name: "play",
+    names: ["play", "p"],
     description: "Play audio from a youtube video.",
     async execute(message, args) {
         try {
