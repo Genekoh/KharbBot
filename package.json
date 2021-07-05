@@ -7,11 +7,8 @@
         "name": "Gene"
     },
     "license": "MIT",
-    "engines": {
-        "node": "14.15.1"
-    },
     "scripts": {
-        "dev": "yarn nodemon src/app.js",
+        "dev": "nodemon src/app.js",
         "start": "node src/app.js"
     },
     "devDependencies": {
@@ -26,6 +23,6 @@
         "dotenv": "^8.2.0",
         "ffmpeg-static": "^4.2.8",
         "googleapis": "^73.0.0",
-        "ytdl-core": "^4.7.0"
+        "ytdl-core": "^4.8.3"
     }
 }
